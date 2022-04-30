@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <form id="form">
+      <label for="name">Enter your name</label><br />
+      <input id="name" type="text" placeholder="Enter Name Here..." /><br />
+
+      <label for="">Enter your mail</label><br />
+      <input id="email" type="email" placeholder="Enter mail Here..." /><br />
+
+      <label for="password">Enter your password</label><br />
+      <input
+        id="password"
+        type="password"
+        placeholder="Enter password Here..."
+      /><br />
+
+      <label for="name">Enter your username</label><br />
+      <input
+        id="username"
+        type="text"
+        placeholder="Enter userName Here..."
+      /><br />
+
+      <label for="">Enter your mobile</label><br />
+      <input
+        id="mobile"
+        type="number"
+        placeholder="Enter mobile no. Here..."
+      /><br />
+
+      <label for="name">Enter Description</label><br />
+      <input
+        id="description"
+        type="text"
+        placeholder="Enter description Here..."
+      /><br />
+      <button id="submit">Submit</button>
+    </form>
+    <div id="loginrefer"><h4><a href="login.html">Already have an account</a></h4></div>
+  </body>
+</html>
+<script type="module">
+  import { navbar } from "./script.js";
+  document.getElementById("navbar").innerHTML = navbar();
+  let register = async (e) => {
+    e.preventDefault();
+    console.log("inside register");
+    let form_data = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+      username: document.getElementById("username").value,
+      mobile: document.getElementById("mobile").value,
+      description: document.getElementById("description").value,
+    };
+    form_data = JSON.stringify(form_data);
+    let res = await fetch(
+      "https://masai-api-mocker.herokuapp.com/auth/register",
+      {
+        method: "POST",
+        body: form_data,
+        // mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    let data = await res.json();
+    console.log(data);
+    alert(data.message);
+  };
+  document.getElementById("submit").addEventListener("click", register);
+  //     let register = async (e) => {
+  //     e.preventDefault();
+
+  //     let form_data = {
+  //       name: document.getElementById("name").value,
+  //       email: document.getElementById("email").value,
+  //       password: document.getElementById("password").value,
+  //       username: document.getElementById("username").value,
+  //       mobile: document.getElementById("mobile").value,
+  //       description: document.getElementById("description").value,
+  //     };
+
+  //     form_data = JSON.stringify(form_data);
+
+  //     let res = await fetch(
+  //       "https://masai-api-mocker.herokuapp.com/auth/register",
+  //       {
+  //         method: "POST",
+  //         body: form_data,
+  //         // mode: "no-cors"
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     let data = await res.json();
+  //     console.log(data);
+  //   };
+
+  //   document.getElementById("submit").addEventListener("click", register);
+</script>
